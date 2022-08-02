@@ -1,4 +1,4 @@
-// swift-tools-version:5.4
+// swift-tools-version:5.6
 import PackageDescription
 
 let package = Package(
@@ -22,19 +22,16 @@ let package = Package(
   ],
   dependencies: [
     .package(
-      name: "swift-argument-parser",
       url: "https://github.com/apple/swift-argument-parser.git",
       .upToNextMajor(from: "0.4.3")
     ),
     .package(
-      name: "ShellOut",
       url: "https://github.com/JohnSundell/ShellOut.git",
       .upToNextMajor(from: "2.3.0")
     ),
     .package(
-      name: "arm64-to-sim",
-      url: "https://github.com/darrarski/arm64-to-sim.git",
-      .upToNextMajor(from: "1.0.0")
+      url: "https://github.com/d-date/arm64-to-sim.git",
+      branch: "ignore-header"
     ),
   ],
   targets: [

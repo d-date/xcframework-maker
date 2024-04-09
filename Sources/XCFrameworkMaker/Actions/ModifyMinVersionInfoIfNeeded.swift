@@ -24,7 +24,7 @@ public extension ModifyMinVersionInfoIfNeeded {
         _ = try runShellCommand("vtool -set-build-version 2 15 15 \(deviceBinary.string) -output \(deviceBinary.string)", log?.indented())
       }
 
-      let simulatorBinary = deviceFramework.addingComponent(simulatorFramework.filenameExcludingExtension)
+      let simulatorBinary = simulatorFramework.addingComponent(simulatorFramework.filenameExcludingExtension)
       if !isBuildVersionExist(shellOut: try runShellCommand("otool -l \(simulatorBinary.string)", log?.indented())) {
         _ = try runShellCommand("vtool -set-build-version 7 15 15 \(simulatorBinary.string) -output \(simulatorBinary.string)", log?.indented())
       }

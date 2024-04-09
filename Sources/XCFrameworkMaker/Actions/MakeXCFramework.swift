@@ -39,6 +39,7 @@ public extension MakeXCFramework {
     getArchs: GetArchs = .live(),
     copyFramework: CopyFramework = .live(),
     addArm64Simulator: AddArm64Simulator = .live(),
+    modifyMinVersionInfoIfNeeded: ModifyMinVersionInfoIfNeeded = .live(),
     createXCFramework: CreateXCFramework = .live()
   ) -> Self {
     .init { iOSPath, tvOSPath, arm64sim, output, log in
@@ -69,6 +70,7 @@ public extension MakeXCFramework {
             log?.indented()
           )
         }
+        try modifyMinVersionInfoIfNeeded(device: deviceFramework, simulator: simulatorFramework, log?.indented())
         thinFrameworks.append(contentsOf: [deviceFramework, simulatorFramework])
       }
 

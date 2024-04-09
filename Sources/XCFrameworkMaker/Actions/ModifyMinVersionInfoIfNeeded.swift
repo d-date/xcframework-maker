@@ -20,14 +20,19 @@ public extension ModifyMinVersionInfoIfNeeded {
       log?(.verbose, "- simulatorFramework: \(simulatorFramework.string)")
 
       let deviceBinary = deviceFramework.addingComponent(deviceFramework.filenameExcludingExtension)
-      if try !runShellCommand("otool -l \(deviceBinary.string)", log?.indented()).contains("LC_VERSION_MIN_IPHONEOS") {
+      if !isBuildVersionExist(shellOut: try runShellCommand("otool -l \(deviceBinary.string)", log?.indented())) {
         _ = try runShellCommand("vtool -set-build-version 2 15 15 \(deviceBinary.string) -output \(deviceBinary.string)", log?.indented())
       }
 
       let simulatorBinary = deviceFramework.addingComponent(simulatorFramework.filenameExcludingExtension)
-      if try !runShellCommand("otool -l \(simulatorBinary.string)", log?.indented()).contains("LC_VERSION_MIN_IPHONEOS") {
+      if !isBuildVersionExist(shellOut: try runShellCommand("otool -l \(simulatorBinary.string)", log?.indented())) {
         _ = try runShellCommand("vtool -set-build-version 7 15 15 \(simulatorBinary.string) -output \(simulatorBinary.string)", log?.indented())
       }
     }
+  }
+
+  private static func isBuildVersionExist(shellOut: String) -> Bool {
+    shellOut.contains("LC_VERSION_MIN_IPHONEOS")
+    || shellOut.contains("LC_BUILD_VERSION")
   }
 }

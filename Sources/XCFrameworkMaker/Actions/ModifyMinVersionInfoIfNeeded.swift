@@ -21,12 +21,12 @@ public extension ModifyMinVersionInfoIfNeeded {
 
       let deviceBinary = deviceFramework.addingComponent(deviceFramework.filenameExcludingExtension)
       if !isBuildVersionExist(shellOut: try runShellCommand("otool -l \(deviceBinary.string)", log?.indented())) {
-        _ = try runShellCommand("vtool -set-build-version 2 12 12 \(deviceBinary.string) -output \(deviceBinary.string)", log?.indented())
+        _ = try runShellCommand("vtool -set-build-version 2 12 17.2 \(deviceBinary.string) -output \(deviceBinary.string)", log?.indented())
       }
 
       let simulatorBinary = simulatorFramework.addingComponent(simulatorFramework.filenameExcludingExtension)
       if !isBuildVersionExist(shellOut: try runShellCommand("otool -l \(simulatorBinary.string)", log?.indented())) {
-        _ = try runShellCommand("vtool -set-build-version 7 12 12 \(simulatorBinary.string) -output \(simulatorBinary.string)", log?.indented())
+        _ = try runShellCommand("vtool -set-build-version 7 12 17.2 \(simulatorBinary.string) -output \(simulatorBinary.string)", log?.indented())
       }
     }
   }

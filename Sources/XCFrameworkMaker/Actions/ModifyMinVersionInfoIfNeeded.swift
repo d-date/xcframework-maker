@@ -21,12 +21,12 @@ public extension ModifyMinVersionInfoIfNeeded {
 
       let deviceBinary = deviceFramework.addingComponent(deviceFramework.filenameExcludingExtension)
       if try !runShellCommand("otool -l \(deviceBinary.string)", log?.indented()).contains("LC_VERSION_MIN_IPHONEOS") {
-        _ = try runShellCommand("vtool -set-build-version 2 15 15", log?.indented())
+        _ = try runShellCommand("vtool -set-build-version 2 15 15 \(deviceBinary.string)", log?.indented())
       }
 
       let simulatorBinary = deviceFramework.addingComponent(simulatorFramework.filenameExcludingExtension)
       if try !runShellCommand("otool -l \(simulatorBinary.string)", log?.indented()).contains("LC_VERSION_MIN_IPHONEOS") {
-        _ = try runShellCommand("vtool -set-build-version 7 15 15", log?.indented())
+        _ = try runShellCommand("vtool -set-build-version 7 15 15 \(simulatorBinary.string)", log?.indented())
       }
     }
   }
